@@ -400,7 +400,7 @@ export const NurseryService: React.FC = () => {
               <div className="mb-6">
                 <h3 className="text-xl font-semibold mb-4">Driver's Route</h3>
                 <div className="h-64 w-full rounded-lg overflow-hidden">
-                  <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+                  <LoadScript googleMapsApiKey="AIzaSyDZ6yWuB5VYg3_YA-Rob_MFrlxhFcgOFdw">
                     <GoogleMap
                       mapContainerStyle={{ width: '100%', height: '100%' }}
                       center={selectedDriver.currentLocation}
