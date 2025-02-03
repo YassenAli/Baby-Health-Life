@@ -1,6 +1,6 @@
+import { Clock, CreditCard, MapPin, Milk, Truck } from 'lucide-react';
 import React, { useState } from 'react';
-import { MilkOrder, Location } from '../types';
-import { Milk, MapPin, CreditCard, Truck } from 'lucide-react';
+import { MilkOrder, Store } from '../types';
 
 export const BabyMilkService: React.FC = () => {
   const [order, setOrder] = useState<MilkOrder>({
@@ -17,11 +17,40 @@ export const BabyMilkService: React.FC = () => {
     cvv: '',
   });
 
+  const [selectedStore, setSelectedStore] = useState<Store | null>(null);
+
   const milkTypes = [
     { id: '1', name: 'Similac Advance', price: 29.99 },
     { id: '2', name: 'Enfamil NeuroPro', price: 32.99 },
     { id: '3', name: 'Aptamil', price: 34.99 },
     { id: '4', name: 'Nan Pro', price: 27.99 },
+  ];
+
+  const stores: Store[] = [
+    {
+      id: '1',
+      name: 'Baby Care Store - Downtown',
+      location: { lat: 40.7128, lng: -74.0060, address: '123 Main St, Downtown' },
+      distance: 0.8,
+      walkingTime: '10 mins',
+      drivingTime: '3 mins',
+    },
+    {
+      id: '2',
+      name: 'Mother Care Center',
+      location: { lat: 40.7144, lng: -74.0052, address: '456 Park Ave' },
+      distance: 1.2,
+      walkingTime: '15 mins',
+      drivingTime: '5 mins',
+    },
+    {
+      id: '3',
+      name: 'Baby Essentials Shop',
+      location: { lat: 40.7112, lng: -74.0082, address: '789 Broadway' },
+      distance: 1.5,
+      walkingTime: '18 mins',
+      drivingTime: '6 mins',
+    },
   ];
 
   const paymentMethods = [
@@ -33,6 +62,7 @@ export const BabyMilkService: React.FC = () => {
     e.preventDefault();
     console.log('Order submitted:', order);
     console.log('Card Info:', cardInfo);
+    console.log('Selected Store:', selectedStore);
   };
 
   return (
@@ -72,6 +102,95 @@ export const BabyMilkService: React.FC = () => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Delivery Option</label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div
+                className={`border rounded-lg p-4 cursor-pointer flex items-center ${
+                  order.deliveryOption === 'delivery'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'hover:border-blue-300'
+                }`}
+                onClick={() => {
+                  setOrder({ ...order, deliveryOption: 'delivery' });
+                  setSelectedStore(null);
+                }}
+              >
+                <Truck className="h-5 w-5 text-blue-600 mr-2" />
+                <span>Home Delivery</span>
+              </div>
+              <div
+                className={`border rounded-lg p-4 cursor-pointer flex items-center ${
+                  order.deliveryOption === 'pickup'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'hover:border-blue-300'
+                }`}
+                onClick={() => setOrder({ ...order, deliveryOption: 'pickup' })}
+              >
+                <MapPin className="h-5 w-5 text-blue-600 mr-2" />
+                <span>Store Pickup</span>
+              </div>
+            </div>
+          </div>
+
+          {order.deliveryOption === 'pickup' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Select Store for Pickup
+              </label>
+              <div className="space-y-4">
+                {stores.map((store) => (
+                  <div
+                    key={store.id}
+                    className={`border rounded-lg p-4 cursor-pointer hover:border-blue-500 transition-all duration-200 ${
+                      selectedStore?.id === store.id ? 'border-blue-500 bg-blue-50' : ''
+                    }`}
+                    onClick={() => {
+                      setSelectedStore(store);
+                      setOrder({ ...order, store });
+                    }}
+                  >
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-semibold text-lg">{store.name}</h3>
+                        <p className="text-gray-600 flex items-center mt-1">
+                          <MapPin className="h-4 w-4 mr-1" />
+                          {store.location.address}
+                        </p>
+                        <div className="flex items-center mt-2">
+                          <Clock className="h-4 w-4 text-gray-400" />
+                          <span className="ml-1 text-gray-600">
+                            Walk: {store.walkingTime} | Drive: {store.drivingTime}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-600">{store.distance} km away</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {order.deliveryOption === 'delivery' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Delivery Address
+              </label>
+              <textarea
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                rows={3}
+                placeholder="Enter your delivery address"
+                onChange={(e) =>
+                  setOrder({
+                    ...order,
+                    location: { lat: 0, lng: 0, address: e.target.value },
+                  })
+                }
+              />
+            </div>
+          )}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
@@ -149,53 +268,6 @@ export const BabyMilkService: React.FC = () => {
                   />
                 </div>
               </div>
-            </div>
-          )}
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Delivery Option</label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div
-                className={`border rounded-lg p-4 cursor-pointer flex items-center ${
-                  order.deliveryOption === 'delivery'
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'hover:border-blue-300'
-                }`}
-                onClick={() => setOrder({ ...order, deliveryOption: 'delivery' })}
-              >
-                <Truck className="h-5 w-5 text-blue-600 mr-2" />
-                <span>Home Delivery</span>
-              </div>
-              <div
-                className={`border rounded-lg p-4 cursor-pointer flex items-center ${
-                  order.deliveryOption === 'pickup'
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'hover:border-blue-300'
-                }`}
-                onClick={() => setOrder({ ...order, deliveryOption: 'pickup' })}
-              >
-                <MapPin className="h-5 w-5 text-blue-600 mr-2" />
-                <span>Store Pickup</span>
-              </div>
-            </div>
-          </div>
-
-          {order.deliveryOption === 'delivery' && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Delivery Address
-              </label>
-              <textarea
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                rows={3}
-                placeholder="Enter your delivery address"
-                onChange={(e) =>
-                  setOrder({
-                    ...order,
-                    location: { lat: 0, lng: 0, address: e.target.value },
-                  })
-                }
-              />
             </div>
           )}
 
