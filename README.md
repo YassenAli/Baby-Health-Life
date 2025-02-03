@@ -104,13 +104,13 @@ baby-health-life/
 │   │   ├── Layout.tsx
 │   │   ├── NebulizeService.tsx
 │   │   ├── BabyMilkService.tsx
+│   │   ├── Home.tsx
 │   │   └── NurseryService.tsx
-│   ├── types/
-│   │   └── index.ts
+│   ├── types.ts
+│   ├── index.css
 │   ├── App.tsx
 │   └── main.tsx
-├── public/
-├── .env
+├── index.html
 └── package.json
 ```
 
