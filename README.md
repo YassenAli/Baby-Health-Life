@@ -19,7 +19,7 @@ A comprehensive healthcare platform designed to provide essential services for b
 - Track driver location in real-time
 - Generate QR codes for appointments
 
-![Nebulize Service Screenshot]()
+![Nebulize Service Screenshot](screenshots/Nebulize%20Service%20Screenshot.png)
 
 ### 2. Baby Milk Service
 - Order baby milk products from trusted suppliers
@@ -28,7 +28,7 @@ A comprehensive healthcare platform designed to provide essential services for b
 - Real-time tracking of delivery status
 - Find nearby pickup locations with distance information
 
-![Baby Milk Service Screenshot](https://images.unsplash.com/photo-1584467541268-b040f83be3fd?auto=format&fit=crop&q=80&w=800&h=400)
+![Baby Milk Service Screenshot](screenshots/Baby%20Milk%20Service%20Screenshot.png)
 
 ### 3. Nursery Service
 - Browse and compare nearby nurseries
@@ -38,7 +38,7 @@ A comprehensive healthcare platform designed to provide essential services for b
 - Schedule visits and enrollments
 - Transportation arrangement options
 
-![Nursery Service Screenshot](https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&q=80&w=800&h=400)
+![Nursery Service Screenshot](screenshots/Nursery%20Service%20Screenshot.png)
 
 ## 🚀 Getting Started
 
@@ -83,13 +83,13 @@ npm run dev
 ## 📱 Screenshots
 
 ### Home Page
-![Home Page]()
+![Home Page](screenshots/Home%20Page.png)
 
 ### Service Selection
-![Service Selection]()
+![Service Selection](screenshots/Service%20Selection.png)
 
 ### Appointment Booking
-![Appointment Booking]()
+![Appointment Booking](screenshots/Appointment%20Booking.png)
 
 ## 🌐 Live Demo
 
